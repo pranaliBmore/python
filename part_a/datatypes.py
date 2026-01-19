@@ -35,3 +35,7 @@ print(type(9 + 1.9)) # int + float = float
 print(2 ** 3) # exponentiation
 print(5 // 4) # floor division
 print(6 % 4) # modulus
+
+# math functions
+print(round(3.1))
+print(abs(-20))
