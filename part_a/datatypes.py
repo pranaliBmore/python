@@ -41,3 +41,20 @@ print(6 % 4) # modulus
 
 print(round(3.1))
 print(abs(-20))
+
+# Strings
+print(type("Hi there!"))
+
+# long strings using triple quotes
+long_string = '''
+WOW
+O O
+---
+'''
+print(long_string)
+
+# String concatenation
+first_name = "Pranali"
+last_name = "More"
+full_name = first_name + " " + last_name
+print(full_name)
