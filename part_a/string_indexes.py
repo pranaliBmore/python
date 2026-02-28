@@ -5,4 +5,9 @@ demo = 'Hello, Good Morning'
 print(demo[0])    # H
 print(demo[7])    # G
 
-print(s)
+
+selfish = '01234567'
+        #  01234567
+
+# [start:stop]
+print(selfish[0:0])
