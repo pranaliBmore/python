@@ -27,3 +27,4 @@ print(quote.find('be'))
 
 print(quote.replace('be', 'me'))
 # Output : to me or not to me
+
