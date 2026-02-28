@@ -1,7 +1,7 @@
 # Built-in functions and methods in Python
 
-str()
+'''str()
 int()
-print()
-
-len()
+print()'''
+ 
+print(len('Hellooooo'))
