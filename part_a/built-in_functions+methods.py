@@ -22,3 +22,8 @@ print(quote.upper())
 print(quote.capitalize())
 # Output : To be or not be
 
+print(quote.find('be'))
+# Output : 3
+
+print(quote.replace('be', 'me'))
+# Output : to me or not to me
