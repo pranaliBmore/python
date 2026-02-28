@@ -9,5 +9,5 @@ print(demo[7])    # G
 selfish = '01234567'
         #  01234567
 
-# [start:stop]
-print(selfish[0:0])
+# [start:stop:stepover]
+print(selfish[0:8:2])
