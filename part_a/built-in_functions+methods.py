@@ -28,3 +28,6 @@ print(quote.find('be'))
 print(quote.replace('be', 'me'))
 # Output : to me or not to me
 
+print(quote)
+# Output : to be or not to be
+# The original string 'quote' remains unchanged because the replace() method returns a new string with the specified replacements, rather than modifying the original string in place.
