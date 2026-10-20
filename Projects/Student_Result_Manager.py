@@ -76,72 +76,100 @@ tk.Label(
     fg = "#64748b"
 ).pack(pady=(10,0))
 
+total_label = tk.Label(
+    total_card,
+    text = "0",
+    font = ("Arial", 24, "bold"),
+    bg = "white",
+    fg = "#1f3a5f"
+)
+total_label.pack(pady=(0,10))
 
+#Main Content
 
-while True:
-    #print("\n*****STUDENT RESULT MANAGEMENT SYSTEM*****")
-    print("1. Add Student")
-    print("2. View Student")
-    print("3. Check Result")
-    print("4. Update Student")
-    print("5. Delete Student")
-    print("6. Exit")
+content = tk.Frame(root, bg = "#f4f6f9")
+content.pack(fill = "both", expand = True, padx = 20, pady = 5)
 
-    choice = input("Enter your choice: ")
+# left panel : student form
+form = tk.LabelFrame(
+    content,
+    text = "Student Information",
+    font = ("Arial", 12, "bold"),
+    bg = "white",
+    fg = "#1f3a5f",
+    padx = 15,
+    pady = 15
+)
+form.pack(side="left", fill = "y", padx(0,15))
 
-    #Add Student
-    if choice == "1":
-        id = int(input("Enter Student ID: "))
-        name = input("Enter Student Name: ")
-        marks = int(input("Enter Marks: "))
-        student[id] = {"name" : name, "marks" : marks}
-        print(f"{name} Successfully Added!")
+tk.Label(
+    form, text = "Student ID",
+    bg = "white",
+    font = ("Arial", 10)
+).pack(anchor = "w", pady = (5,2))
 
-    #view Student
-    elif choice =="2":
-        if not student:
-            print("No Student Found!")
-        else:
-            for name, marks in student.items():
-                print(name, ":", marks)
+id_entry = ttk.Entry(form, width = 28)
+id_entry.pack(pady=(0,10))
 
-    #check Result
-    elif choice =="3":
-        id = int(input("Enter Student ID: "))
-        if id in student:
-            marks = student[id]["marks"]
-            if marks >= 40:
-                print(f"{student[id]['name']} : PASS")
-            else:
-                print(f"{student[id]['name']} : FAIL")
-        else:
-            print("Student Not Found!")
+tk.Label(
+    form, text = "Student Name", 
+    bg="white", 
+    font=("Arial", 10)
+).pack(anchor="w", pady=(5, 2))
 
-    #Update Student
-    elif choice == "4":
-        id = int(input("Enter Student ID: "))
-        if id in student:
-            name = input("Enter New Student Name: ")
-            marks = int(input("Enter new marks: "))
-            student[id] = {"name" : name, "marks" : marks}
-            print(f"{name} Successfully Updated!")
+name_entry = ttk.Entry(form, width=28)
+name_entry.pack(pady=(0, 10))
 
-    #Delete Student
-    elif choice == "5":
-        id = int(input("Enter student ID: "))
-        if id in student:
-            del student[id]
-            print("Student Successfully Deleted!")
-        else:
-            print("Student Not Found!")
+tk.Label(
+    form, text = "Marks (0-100)", 
+    bg="white", 
+    font=("Arial", 10)
+).pack(anchor="w", pady=(5, 2))
 
-    #Exit
-    elif choice == "6":
-        print("Exiting the Program...")
-        break
-    else:
-        print("Invalid Choice! Please Try Again.")
+marks_entry = ttk.Entry(form, width=28)
+marks_entry.pack(pady=(0, 15))
 
+# Right panel: Student table
+table_frame = tk.LabelFrame(
+    content,
+    text=" Student Records ",
+    font=("Arial", 11, "bold"),
+    bg="white",
+    fg="#1f3a5f",
+    padx=10,
+    pady=10
+)
+table_frame.pack(side="left", fill="both", expand=True)
 
-        
-              
+columns = ("id", "name", "marks", "result")
+
+tree = ttk.Treeview(
+    table_frame,
+    columns=columns,
+    show="headings"
+)
+
+tree.heading("id", text="Student ID")
+tree.heading("name", text="Student Name")
+tree.heading("marks", text="Marks")
+tree.heading("result", text="Result")
+
+tree.column("id", width=90, anchor="center")
+tree.column("name", width=150)
+tree.column("marks", width=70, anchor="center")
+tree.column("result", width=80, anchor="center")
+
+scrollbar = ttk.Scrollbar(
+    table_frame,
+    orient="vertical",
+    command=tree.yview
+)
+
+tree.configure(yscrollcommand=scrollbar.set)
+
+tree.pack(side="left", fill="both", expand=True)
+scrollbar.pack(side="right", fill="y")
+
+tree.tag_configure("pass", foreground="#15803d")
+tree.tag_configure("fail", foreground="#dc2626")
+
