@@ -43,4 +43,11 @@ def play(number, attempt = 1):
 
         play(number, attempt + 1)
 
+#start game
+
+rule_list()
+random_number = random.randint(1,100)
+play(random_number)
+
+
     
