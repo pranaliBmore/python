@@ -415,3 +415,58 @@ def search_student():
             select_student()
             break
 
+#buttons
+
+buttons = tk.Frame(form, bg="white")
+buttons.pack(fill="x", pady=5)
+
+ttk.Button(
+    buttons,
+    text="Add Student",
+    command=add_student
+).pack(fill="x", pady=4)
+
+ttk.Button(
+    buttons,
+    text="Update Student",
+    command=update_student
+).pack(fill="x", pady=4)
+
+ttk.Button(
+    buttons,
+    text="Delete Student",
+    command=delete_student
+).pack(fill="x", pady=4)
+
+ttk.Button(
+    buttons,
+    text="Check Result",
+    command=check_result
+).pack(fill="x", pady=4)
+
+ttk.Button(
+    buttons,
+    text="Search Student",
+    command=search_student
+).pack(fill="x", pady=4)
+
+ttk.Button(
+    buttons,
+    text="Clear Fields",
+    command=clear_fields
+).pack(fill="x", pady=4)
+
+#footer
+
+footer = tk.Label(
+    root,
+    text="Student Result Management System | Python Tkinter",
+    font=("Arial", 9),
+    bg="#f4f6f9",
+    fg="#64748b"
+)
+footer.pack(pady=10)
+
+#run application
+
+root.mainloop()
