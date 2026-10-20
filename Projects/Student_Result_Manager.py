@@ -1,22 +1,23 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 
 #main window
 
 root = tk.Tk()
 root.title("Student Result Management System")
-root.geometry("800x500")
-root.configure(bg="#f4f6f9")
+root.geometry("1000x800")
+root.configure(bg="#f4f8f9")
 root.minsize(800,500)
 
 #student dictionary for storing student Info
-student = {}
+students = {}
 
 #styles
 style = ttk.Style()
 style.theme_use("clam")
 
-style.configuration(
+style.configure(
     "Treeview",
     rowheight = 30,
     font = ("Arial", 12)
@@ -100,7 +101,7 @@ form = tk.LabelFrame(
     padx = 15,
     pady = 15
 )
-form.pack(side="left", fill = "y", padx(0,15))
+form.pack(side="left", fill = "y", padx= (0,15))
 
 tk.Label(
     form, text = "Student ID",
@@ -455,17 +456,6 @@ ttk.Button(
     text="Clear Fields",
     command=clear_fields
 ).pack(fill="x", pady=4)
-
-#footer
-
-footer = tk.Label(
-    root,
-    text="Student Result Management System | Python Tkinter",
-    font=("Arial", 9),
-    bg="#f4f6f9",
-    fg="#64748b"
-)
-footer.pack(pady=10)
 
 #run application
 
