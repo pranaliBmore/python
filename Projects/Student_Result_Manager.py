@@ -255,3 +255,163 @@ def select_student(event=None):
 
 
 tree.bind("<<TreeviewSelect>>", select_student)
+
+#curd operation
+
+def add_student():
+    data = get_student_input()
+
+    if data is None:
+        return
+
+    student_id, name, marks = data
+
+    if student_id in students:
+        messagebox.showerror(
+            "Duplicate ID",
+            "This Student ID already exists."
+        )
+        return
+
+    students[student_id] = {
+        "name": name,
+        "marks": marks
+    }
+
+    refresh_table()
+    clear_fields()
+
+    messagebox.showinfo(
+        "Success",
+        f"{name} was added successfully!"
+    )
+
+
+def update_student():
+    data = get_student_input()
+
+    if data is None:
+        return
+
+    student_id, name, marks = data
+
+    if student_id not in students:
+        messagebox.showerror(
+            "Not Found",
+            "Student ID does not exist."
+        )
+        return
+
+    students[student_id] = {
+        "name": name,
+        "marks": marks
+    }
+
+    refresh_table()
+    clear_fields()
+
+    messagebox.showinfo(
+        "Success",
+        "Student details updated successfully!"
+    )
+
+
+def delete_student():
+    try:
+        student_id = int(id_entry.get().strip())
+    except ValueError:
+        messagebox.showerror(
+            "Invalid ID",
+            "Enter a valid Student ID or select a student from the table."
+        )
+        return
+
+    if student_id not in students:
+        messagebox.showerror(
+            "Not Found",
+            "Student ID does not exist."
+        )
+        return
+
+    confirm = messagebox.askyesno(
+        "Confirm Delete",
+        f"Delete student {students[student_id]['name']}?"
+    )
+
+    if confirm:
+        del students[student_id]
+        refresh_table()
+        clear_fields()
+
+        messagebox.showinfo(
+            "Success",
+            "Student deleted successfully!"
+        )
+
+
+def check_result():
+    try:
+        student_id = int(id_entry.get().strip())
+    except ValueError:
+        messagebox.showerror(
+            "Invalid ID",
+            "Enter a valid Student ID."
+        )
+        return
+
+    if student_id not in students:
+        messagebox.showerror(
+            "Not Found",
+            "Student ID does not exist."
+        )
+        return
+
+    details = students[student_id]
+    result = "PASS" if details["marks"] >= 40 else "FAIL"
+
+    messagebox.showinfo(
+        "Student Result",
+        f"Name: {details['name']}\n"
+        f"Marks: {details['marks']}\n"
+        f"Result: {result}"
+    )
+
+
+def search_student():
+    search_id = id_entry.get().strip()
+
+    if not search_id:
+        messagebox.showwarning(
+            "Search Student",
+            "Enter a Student ID to search."
+        )
+        return
+
+    try:
+        student_id = int(search_id)
+    except ValueError:
+        messagebox.showerror(
+            "Invalid ID",
+            "Student ID must be a whole number."
+        )
+        return
+
+    if student_id not in students:
+        messagebox.showinfo(
+            "Search Result",
+            "No student found with this ID."
+        )
+        return
+
+    refresh_table()
+
+    for item in tree.get_children():
+        values = tree.item(item, "values")
+
+        if int(values[0]) == student_id:
+            tree.selection_set(item)
+            tree.focus(item)
+            tree.see(item)
+            select_student()
+            break
+
