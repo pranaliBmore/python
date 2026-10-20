@@ -1,7 +1,85 @@
+import tkinter as tk
+from tkinter import ttk
+
+#main window
+
+root = tk.Tk()
+root.title("Student Result Management System")
+root.geometry("800x500")
+root.configure(bg="#f4f6f9")
+root.minsize(800,500)
+
+#student dictionary for storing student Info
 student = {}
 
+#styles
+style = ttk.Style()
+style.theme_use("clam")
+
+style.configuration(
+    "Treeview",
+    rowheight = 30,
+    font = ("Arial", 12)
+)
+
+style.configure(
+    "Treeview.Heading",
+    font = ("Arial", 10, "bold"),
+    bg = "#dce6f1"
+)
+
+style.configure(
+    "TButton",
+    font = ("Arial", 10),
+    padding = 7
+)
+
+#header
+
+header = tk.Frame(root, bg = "#1f3a5f", height = 110)
+header.pack(fill = "x")
+
+tk.Label(
+    header,
+    text = "Student Result Management System",
+    font = ("Arial", 22, "bold"),
+    bg = "#1f3a5f",
+    fg = "white"
+).pack(pady=(20, 5))
+
+tk.Label(
+    header,
+    text = "Manage student records and academic result",
+    font = ("Arial", 12),
+    bg="#1f3a5f",
+    fg="#dce6f1"
+).pack()
+
+#dashboard
+
+dashboard = tk.Frame(root, bg = "#f4f6f9")
+dashboard.pack(fill = "x", padx = 20, pady = 15)
+
+total_card = tk.Frame(
+    dashboard,
+    bg = "white",
+    highlightbackground = "#dce6f1", 
+    highlightthickness = 1
+)
+total_card.pack(fill = "x")
+
+tk.Label(
+    total_card,
+    text = "TOTAL STUDENTS",
+    font = ("Arial", 10, "bold"),
+    bg = "white",
+    fg = "#64748b"
+).pack(pady=(10,0))
+
+
+
 while True:
-    print("\n*****STUDENT RESULT MANAGEMENT SYSTEM*****")
+    #print("\n*****STUDENT RESULT MANAGEMENT SYSTEM*****")
     print("1. Add Student")
     print("2. View Student")
     print("3. Check Result")
