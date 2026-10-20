@@ -173,3 +173,85 @@ scrollbar.pack(side="right", fill="y")
 tree.tag_configure("pass", foreground="#15803d")
 tree.tag_configure("fail", foreground="#dc2626")
 
+#helper fun
+
+def get_student_input():
+    """Validate student ID, name and marks."""
+    student_id = id_entry.get().strip()
+    name = name_entry.get().strip()
+    marks_text = marks_entry.get().strip()
+
+    if not student_id or not name or not marks_text:
+        messagebox.showwarning(
+            "Missing Information",
+            "Please fill in all fields."
+        )
+        return None
+
+    try:
+        student_id = int(student_id)
+        marks = float(marks_text)
+    except ValueError:
+        messagebox.showerror(
+            "Invalid Input",
+            "Student ID must be a whole number and marks must be numeric."
+        )
+        return None
+
+    if not 0 <= marks <= 100:
+        messagebox.showerror(
+            "Invalid Marks",
+            "Marks must be between 0 and 100."
+        )
+        return None
+
+    return student_id, name, marks
+
+
+def clear_fields():
+    id_entry.delete(0, tk.END)
+    name_entry.delete(0, tk.END)
+    marks_entry.delete(0, tk.END)
+
+
+def refresh_table():
+    """Refresh the table and dashboard count."""
+    for item in tree.get_children():
+        tree.delete(item)
+
+    for student_id, details in students.items():
+        result = "PASS" if details["marks"] >= 40 else "FAIL"
+        tag = "pass" if result == "PASS" else "fail"
+
+        tree.insert(
+            "",
+            tk.END,
+            values=(
+                student_id,
+                details["name"],
+                details["marks"],
+                result
+            ),
+            tags=(tag,)
+        )
+
+    total_label.config(text=str(len(students)))
+
+
+def select_student(event=None):
+    """Load selected table row into the form."""
+    selected = tree.selection()
+
+    if not selected:
+        return
+
+    values = tree.item(selected[0], "values")
+
+    clear_fields()
+
+    id_entry.insert(0, values[0])
+    name_entry.insert(0, values[1])
+    marks_entry.insert(0, values[2])
+
+
+tree.bind("<<TreeviewSelect>>", select_student)
