@@ -24,3 +24,15 @@ login_button = driver.find_element(By.XPATH, "//button[@type='submit']")
 login_button.click()
 
 time.sleep(3)  #wait for the page to load
+
+
+# Search for profiles
+
+search_box = driver.find_element(By.CSS_SELECTOR, ".search-global-typehead_input.search-global-typehead_input--ellipsis")
+search_box.send_keys("Data Analyst") 
+search_box.send_keys(Keys.RETURN)
+time.sleep(5)
+
+
+
+
